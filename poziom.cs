@@ -13,15 +13,17 @@ namespace Fizyczny_Mag
     public class poziom
     {
         static public Image obraztla = Image.FromFile("../../../FizycznyMag_assets/bg.png");
-        static public Image ziemia = Image.FromFile("../../../FizycznyMag_assets/ziemia.png");
+        static public Image przeszkoda = Image.FromFile("../../../FizycznyMag_assets/kamien.png");
+        static public Image ziemia = Image.FromFile("../../../FizycznyMag_assets/ziemia3.png");
         static private Image strzalka = Image.FromFile("../../../FizycznyMag_assets/strzalka.png");
 
         private PictureBox[] Ziemia;
         private PictureBox Strzalka;
+        private PictureBox Przeszkoda;
         static private int IloscZiemii = 2;
         private int speed = 5;
 
-        private int speedstrzalki = 1;
+        private int speedstrzalki = 2;
         private int pozycjastrzalki;
         private bool gora = true;
         static private int maxdystanstrzalki = 20;
@@ -45,6 +47,11 @@ namespace Fizyczny_Mag
             Strzalka.Location = new Point(Main.Width - Strzalka.Width - 20, Main.Height - ziemia.Height - Strzalka.Height - 20);
             pozycjastrzalki = Strzalka.Top;
 
+            Przeszkoda = new PictureBox();
+            Przeszkoda.Image = przeszkoda;
+            Przeszkoda.Size = new Size(przeszkoda.Width / 10, przeszkoda.Height / 10);
+            Przeszkoda.Location = new Point(Main.Width/2, Main.Height - ziemia.Height - Przeszkoda.Height+20);
+
             Main.Paint += new PaintEventHandler(paint);
         }
 
@@ -63,6 +70,8 @@ namespace Fizyczny_Mag
                 }
 
             }
+            e.Graphics.DrawImage(Przeszkoda.Image, Przeszkoda.Left, Przeszkoda.Top, Przeszkoda.Width, Przeszkoda.Height);
+
         }
 
         public void animacjastrzałki()
@@ -91,7 +100,6 @@ namespace Fizyczny_Mag
                         gora = true;
                     }
                 }
-                
             }
         }
         

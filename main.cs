@@ -19,8 +19,8 @@ namespace Fizyczny_Mag
             
             kpoziom = new poziom(this);
             kgracz = new gracz(this);
-            knaukowiec = new naukowiec();
-            kmenu = new menu();
+            knaukowiec = new naukowiec(this);
+            kmenu = new menu(this);
             Application.Idle += gra;
 
         }

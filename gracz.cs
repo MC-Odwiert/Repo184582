@@ -8,10 +8,10 @@ namespace Fizyczny_Mag
 {
     internal class gracz
     {
-        static private Image model = Image.FromFile("../../../FizycznyMag_assets/playerModel.png");
+        static private Image model = Image.FromFile("../../../FizycznyMag_assets/playerModel2.png");
         private PictureBox Gracz;
         private main Main;
-        private int zoom = 5;
+        private int zoom = 2;
         private int speed = 10;
         public gracz(main Main)
         {
@@ -19,14 +19,13 @@ namespace Fizyczny_Mag
             Gracz = new PictureBox();
             Gracz.Image = model;
             Gracz.Size = new Size(model.Width/zoom, model.Height/zoom);
-            Gracz.Location = new Point(20, Main.Height - poziom.ziemia.Height - Gracz.Height + 5);
-
+            Gracz.Location = new Point(20, Main.Height - poziom.ziemia.Height - Gracz.Height + 40);
+            
             Main.Paint += new PaintEventHandler(paint);
         }
 
         private void paint(object sender, PaintEventArgs e)
         {
-
             if (Gracz.Visible == true)
             {
                 e.Graphics.DrawImage(Gracz.Image, Gracz.Left, Gracz.Top, Gracz.Width, Gracz.Height);
