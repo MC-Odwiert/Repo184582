@@ -1,1 +1,1 @@
-Mag
+Fizyczny Mag
