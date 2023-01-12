@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Fizyczny_Mag
 {
@@ -11,8 +12,8 @@ namespace Fizyczny_Mag
     {
         static private Image scroll = Image.FromFile("../../../FizycznyMag_assets/scrollOpen.png");
         static private Font font = new Font("Arial", 15);
-        private PictureBox[] Scroll;
-        private Label[] podpis;
+        public PictureBox[] Scroll;
+        public Label[] podpis;
         private int IloscScrolli = 3;
         private int padding = 20;
         private int zoom = 2;
@@ -35,7 +36,7 @@ namespace Fizyczny_Mag
                 Scroll[i].Location = new Point(Main.Width - Scroll[i].Width - padding - (Scroll[i].Width+padding)*i, padding);
             }
             podpis[0].Text = "WIEDZA";
-            podpis[1].Text = "MENU";
+            podpis[1].Text = "WYJDZ\nZ GRY";
             podpis[2].Text = "POZIOM:\n       1";
 
             Scroll[2].Location = new Point(padding, padding);
@@ -48,6 +49,11 @@ namespace Fizyczny_Mag
 
           
             Main.Paint += new PaintEventHandler(paint);
+        }
+
+        public void ustawpoziom(int poziom)
+        {
+            podpis[2].Text = "POZIOM:\n       " + poziom;
         }
 
         private void paint(object sender, PaintEventArgs e)

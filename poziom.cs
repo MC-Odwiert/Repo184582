@@ -12,15 +12,20 @@ namespace Fizyczny_Mag
 
     public class poziom
     {
-        static public Image obraztla = Image.FromFile("../../../FizycznyMag_assets/bg.png");
-        static public Image przeszkoda = Image.FromFile("../../../FizycznyMag_assets/kamien.png");
-        static public Image ziemia = Image.FromFile("../../../FizycznyMag_assets/ziemia3.png");
+        static public Image bg1 = Image.FromFile("../../../FizycznyMag_assets/bg1.png");
+        static public Image bg2 = Image.FromFile("../../../FizycznyMag_assets/bg2.png");
+        static public Image bg3 = Image.FromFile("../../../FizycznyMag_assets/bg3.png");
+
+        static private Image kamien = Image.FromFile("../../../FizycznyMag_assets/kamien.png");
+        static private Image krokodyl = Image.FromFile("../../../FizycznyMag_assets/krokodyl.png");
+        static private Image studnia = Image.FromFile("../../../FizycznyMag_assets/well.png");
+        static private Image wagon = Image.FromFile("../../../FizycznyMag_assets/minecart.png");
+        static private Image loop = Image.FromFile("../../../FizycznyMag_assets/looptydiscoop.png");
         static private Image strzalka = Image.FromFile("../../../FizycznyMag_assets/strzalka.png");
 
-        private PictureBox[] Ziemia;
-        private PictureBox Strzalka;
-        private PictureBox Przeszkoda;
-        static private int IloscZiemii = 2;
+        public PictureBox Strzalka;
+        public PictureBox Obiekt;
+        private PictureBox wagonik;
         private int speed = 5;
 
         private int speedstrzalki = 2;
@@ -29,49 +34,74 @@ namespace Fizyczny_Mag
         static private int maxdystanstrzalki = 20;
 
         private main Main;
-        public poziom(main Main)
+        public poziom(main Main, int ziemia)
         {
             this.Main = Main;
-            Ziemia = new PictureBox[IloscZiemii];
-            for (int i = 0; i < IloscZiemii; i++)
-            {
-                Ziemia[i] = new PictureBox();
-                Ziemia[i].Image = ziemia;
-                Ziemia[i].Size = new Size(ziemia.Width, ziemia.Height);
-                Ziemia[i].Location = new Point(0+Ziemia[i].Width*i, Main.Height - Ziemia[i].Height);
-            }
 
             Strzalka = new PictureBox();
             Strzalka.Image = strzalka;
             Strzalka.Size = new Size(strzalka.Width/2, strzalka.Height/2);
-            Strzalka.Location = new Point(Main.Width - Strzalka.Width - 20, Main.Height - ziemia.Height - Strzalka.Height - 20);
+            Strzalka.Location = new Point(Main.Width - Strzalka.Width - 20, Main.Height - ziemia - Strzalka.Height - 20);
             pozycjastrzalki = Strzalka.Top;
 
-            Przeszkoda = new PictureBox();
-            Przeszkoda.Image = przeszkoda;
-            Przeszkoda.Size = new Size(przeszkoda.Width / 10, przeszkoda.Height / 10);
-            Przeszkoda.Location = new Point(Main.Width/2, Main.Height - ziemia.Height - Przeszkoda.Height+20);
+            Obiekt = new PictureBox();
+            ustawprzeszkode(1);
+            Obiekt.Location = new Point(Main.Width/2, Main.Height - ziemia - Obiekt.Height+20);
+
+            wagonik = new PictureBox();
+            wagonik.Image = wagon;
 
             Main.Paint += new PaintEventHandler(paint);
         }
 
         private void paint(object sender, PaintEventArgs e)
         {
-            for (int i = 0; i < IloscZiemii; i++)
+            if (Obiekt.Visible == true)
             {
-                if (Ziemia[i].Visible == true)
-                {
-                    e.Graphics.DrawImage(Ziemia[i].Image, Ziemia[i].Left, Ziemia[i].Top, Ziemia[i].Width, Ziemia[i].Height);
-                }
-
-                if (Strzalka.Visible == true)
-                {
-                    e.Graphics.DrawImage(Strzalka.Image, Strzalka.Left, Strzalka.Top, Strzalka.Width, Strzalka.Height);
-                }
-
+                e.Graphics.DrawImage(Obiekt.Image, Obiekt.Left, Obiekt.Top, Obiekt.Width, Obiekt.Height);
             }
-            e.Graphics.DrawImage(Przeszkoda.Image, Przeszkoda.Left, Przeszkoda.Top, Przeszkoda.Width, Przeszkoda.Height);
+            if (wagonik.Visible == true && Obiekt.Visible == true)
+            {
+                e.Graphics.DrawImage(wagonik.Image, wagonik.Left, wagonik.Top, wagonik.Width, wagonik.Height);
+            }
+            if (Strzalka.Visible == true)
+            {
 
+                e.Graphics.DrawImage(Strzalka.Image, Strzalka.Left, Strzalka.Top, Strzalka.Width, Strzalka.Height);
+            }
+        }
+
+        public void ustawprzeszkode(int przeszkoda)
+        {
+            if (przeszkoda == 1)
+            {
+                Obiekt.Image = kamien;
+                Obiekt.Size = new Size(kamien.Width / 10, kamien.Height / 10);
+                Obiekt.Location = new Point(500, 407);
+            }
+            else if (przeszkoda == 2)
+            {
+                Obiekt.Image = krokodyl;
+                Obiekt.Size = new Size(krokodyl.Width / 5, krokodyl.Height / 5);
+                Obiekt.Location = new Point(335, 647);
+            }
+            else if (przeszkoda == 3)
+            {
+                Obiekt.Image = studnia;
+                Obiekt.Size = new Size(studnia.Width / 3, studnia.Height / 3);
+                Obiekt.Location = new Point(500, 380);
+                wagonik.Visible = false;
+            }
+            else if (przeszkoda == 4)
+            {
+                Obiekt.Image = loop;
+                Obiekt.Size = new Size(loop.Width, loop.Height);
+                Obiekt.Location = new Point(300, 125);
+
+                wagonik.Size = new Size(wagon.Width/4, wagon.Height/4);
+                wagonik.Location = new Point(300, 485);
+                wagonik.Visible = true;
+            }
         }
 
         public void animacjastrzałki()
