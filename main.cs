@@ -224,7 +224,7 @@ namespace Fizyczny_Mag
                 dziura.Visible = false;
                 zadanietekst.Text = "Znalaz³eœ studniê w której jest woda, aby j¹ nabraæ musisz spuœciæ w niej wiadro na sznurze, Einstein aby nie przenosiæ zbyt d³ugiego, a co za tym idzie - ciê¿kiego kawa³ka sznura musi oceniæ g³êbokoœæ studni. Wrzuci³eœ do niej kamieñ, a po t = 365/68s us³ysza³eœ 'plum'. Jak¹ g³êbokoœæ ma studnia?";
 
-                knaukowiec.dialog.Text = "Witaj poszukiwaczu! Widzisz, potrzebuje nabraæ wody ze studni, ale chce wiedziec ile dok³adnie sznura u¿yæ ¿eby siê nie nadŸwigaæ z domu. Myœlê ¿e naj³atwiej by³oby to zrobiæ wrzucaj¹c kamieñ do studni...";
+                knaukowiec.dialog.Text = "Witaj poszukiwaczu! Widzisz, potrzebuje nabraæ wody ze studni, ale chce wiedziec ile dok³adnie sznura u¿yæ ¿eby siê nie nadŸwigaæ z domu. Myœlê ¿e naj³atwiej by³oby to zrobiæ wrzucaj¹c kamieñ do studni... Pamiêtaj, ¿e prêdkoœæ dŸwiêku w powietrzu to 340 metrów na sekundê!";
                 kpoziom.Obiekt.Visible = true;
                 kpoziom.ustawprzeszkode(3);
                 kmenu.ustawpoziom(3);
