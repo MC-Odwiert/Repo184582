@@ -8,16 +8,29 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Fizyczny_Mag
 {
-    internal class menu
+    public class menu
     {
         static private Image scroll = Image.FromFile("../../../FizycznyMag_assets/scrollOpen.png");
         static private Font font = new Font("Arial", 15);
         public PictureBox[] Scroll;
+        /// <summary>
+        /// Napisy na scrollach
+        /// </summary>
         public Label[] podpis;
         private int IloscScrolli = 3;
+        /// <summary>
+        /// Granica ekranu dla scrolli
+        /// </summary>
         private int padding = 20;
+        /// <summary>
+        /// Ile pomniejszone maja byc scrolle
+        /// </summary>
         private int zoom = 2;
         private main Main;
+        /// <summary>
+        /// Wyświetla przyciski menu w kształcie scrolli
+        /// </summary>
+        /// <param name="Main"></param>
         public menu(main Main)
         {
             this.Main = Main;

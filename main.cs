@@ -7,21 +7,50 @@ namespace Fizyczny_Mag
 {
     public partial class main : Form
     {
+
+        /// <summary>
+        /// Ktory poziom
+        /// </summary>
         private int level = 1;
+
+        /// <summary>
+        /// Ile zadan zrobionych
+        /// </summary>
         private int progress = 0;
 
         private menu kmenu;
         private poziom kpoziom;
         private gracz kgracz;
         private naukowiec knaukowiec;
+
+        /// <summary>
+        /// Jaki wzor jest uzywany w danym poziomie
+        /// </summary>
         private string wzor;
+
+        /// <summary>
+        /// Uzywane do wysokosci gracza
+        /// </summary>
         public int wysokoscziemii;
+
+        /// <summary>
+        /// Obrazek zapelnionej dziury kamieniem
+        /// </summary>
         private static Image zadanie2wykonane = Image.FromFile("../../../FizycznyMag_assets/zadanie2wykonane.png");
+
+        /// <summary>
+        /// Obrazek dziury w ziemii
+        /// </summary>
         private static Image dziuraimage = Image.FromFile("../../../FizycznyMag_assets/groundTile_hole.png");
 
+        /// <summary>
+        /// Glowna funkcja gry
+        /// </summary>
         public main()
         {
             InitializeComponent();
+            System.Media.SoundPlayer soundtrack = new System.Media.SoundPlayer("../../../FizycznyMag_assets/soundtrack.wav");
+            soundtrack.PlayLooping();
             this.CenterToScreen();
             this.BackgroundImage = poziom.bg1;
             wysokoscziemii = ziemia.Height+15;
@@ -33,6 +62,11 @@ namespace Fizyczny_Mag
             gamedesign();
         }
 
+        /// <summary>
+        /// Animacja strzalki
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void gra(object sender, EventArgs e)
         {
             while (IsApplicationIdle())
@@ -43,34 +77,12 @@ namespace Fizyczny_Mag
 
         }
 
-
-
-
-
-       
-        [StructLayout(LayoutKind.Sequential)]
-        public struct NativeMessage
-        {
-            public IntPtr Handle;
-            public uint Message;
-            public IntPtr WParameter;
-            public IntPtr LParameter;
-            public uint Time;
-            public Point Location;
-        }
-        [DllImport("user32.dll")]
-        public static extern int PeekMessage(out NativeMessage message, IntPtr window, uint filterMin, uint filterMax, uint remove);
-        bool IsApplicationIdle()
-        {
-            NativeMessage result;
-            return PeekMessage(out result, IntPtr.Zero, (uint)0, (uint)0, (uint)0) == 0;
-        }
-
-        private void main_Load(object sender, EventArgs e)
-        {
-            
-        }
-
+        /// <summary>
+        /// Funkcja ktora sprawdza czy gracz chce isc w lewo lub prawo
+        /// Dodatkowo odswieza ekran
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void main_KeyDown(object sender, KeyEventArgs e)
         {
             lewoprawopoziom();
@@ -92,6 +104,9 @@ namespace Fizyczny_Mag
             }
         }
 
+        /// <summary>
+        /// Funkcja ktora pozwala na zmiane poziomu i resetuje pozycje gracza
+        /// </summary>
         private void lewoprawopoziom()
         {
             if (kgracz.Gracz.Location.X >= kpoziom.Strzalka.Location.X - 30 && kpoziom.Strzalka.Visible)
@@ -112,6 +127,9 @@ namespace Fizyczny_Mag
             }
         }
 
+        /// <summary>
+        /// Funkcja ktora ustawia wyglad poziomu
+        /// </summary>
         private void gamedesign()
         {
             if (level == 1)
@@ -134,12 +152,12 @@ namespace Fizyczny_Mag
                 }
                 else if (kgracz.Gracz.Location.X > 0)
                 {
-                    knaukowiec.dialog.Text = "Co tu robi ten kamieñ? Musia³y siê tu stoczyæ z pobliskich gór.. Je¿eli na swojej drodze spotkasz podobn¹ przeszkodê mo¿esz j¹ przesun¹æ korzystaj¹c z mojej pierwszej zasady.";
+                    knaukowiec.dialog.Text = "Co tu robi ten kamieñ? Musia³ siê tu stoczyæ z pobliskich gór... je¿eli na swojej drodze spotkasz podobn¹ przeszkodê mo¿esz j¹ przesun¹æ korzystaj¹c z mojej drugiej zasady.";
                 }
             }
             else if (level == 2)
             {
-                wzor = "F = f * m * g";
+                wzor = "F = mi * m * g";
                 zadanietekst.Visible = true;
                 zadanietekst.Text = "Na drodze napotkano kamieñ o masie m = 5kg, jak¹ si³¹ nale¿y na niego zadzia³aæ aby usun¹æ przeszkodê. Wspó³czynnik tarcia mi = 0,5;   Przyœpieszenie ziemskie g ~= 10N/Kg ";
                 dziura.Visible = true;
@@ -167,9 +185,9 @@ namespace Fizyczny_Mag
             }
             else if (level == 3)
             {
-                wzor = "T = s / v";
+                wzor = "t = s / v";
                 dziura.Visible = false;
-                zadanietekst.Text = "Krokodyl znajduje siê w odleg³oœci 200m i p³ynie z prêdkoœci¹ 8m/s. Ile czasu ma cz³owiek, ¿eby przep³yn¹æ na drug¹ stronê rzeki zanim przyp³ynie krokodyl?";
+                zadanietekst.Text = "Krokodyl znajduje siê w odleg³oœci s = 200m i p³ynie z prêdkoœci¹ v = 8m/s. Ile czasu ma cz³owiek, ¿eby przep³yn¹æ na drug¹ stronê rzeki zanim przyp³ynie krokodyl?";
                 knaukowiec.Naukowiec.Visible = false;
                 knaukowiec.dialog.Visible = false;
                 ziemia.Visible = false;
@@ -201,7 +219,7 @@ namespace Fizyczny_Mag
             }
             else if (level == 4)
             {
-                wzor = "t1 + t2 = t  =  s/v + sqrt(2*(s/g)";
+                wzor = "t = s/v + sqrt(2*(s/g)";
                 ziemia.Visible = true;
                 dziura.Visible = false;
                 zadanietekst.Text = "Znalaz³eœ studniê w której jest woda, aby j¹ nabraæ musisz spuœciæ w niej wiadro na sznurze, Einstein aby nie przenosiæ zbyt d³ugiego, a co za tym idzie - ciê¿kiego kawa³ka sznura musi oceniæ g³êbokoœæ studni. Wrzuci³eœ do niej kamieñ, a po t = 365/68s us³ysza³eœ 'plum'. Jak¹ g³êbokoœæ ma studnia?";
@@ -237,22 +255,22 @@ namespace Fizyczny_Mag
                     dziura.Image = dziuraimage;
                 }
 
-                if (kgracz.Gracz.Location.X > 150)
+                if (kgracz.Gracz.Location.X > 200)
                 {
                     knaukowiec.dialog.Text = "Mog³eœ ju¿ na swojej drodze spotkaæ Izaaka Newtona, ale pewnie nie powiedzia³ Ci jak wyliczaæ si³ê odœrodkow¹, dlatego Ci pomogê. Widzisz, ¿eby nie oderwaæ siê od toru na pêtli wystarczy abyœ równowa¿y³ si³ê, która œci¹ga Ciê w dó³. Do tego mo¿esz u¿yæ wzoru F=mv^2/r, przyrównaj go do si³y przyspieszenia grawitacyjnego i bez problemu pokonasz pêtlê!";
                 }
-                else if (kgracz.Gracz.Location.X > 50)
+                else if (kgracz.Gracz.Location.X > 100)
                 {
                     knaukowiec.dialog.Text = "Najpierw jednak trzeba Ciê nauczyæ, czym s¹ rezystory i jak je ³¹czyæ. W prostych s³owach rezystory ograniczaj¹ pr¹d p³yn¹cy w obwodzie, mo¿emy je po³¹czyæ na dwa sposoby, równolegle i szeregowo, równoleg³e po³¹czenie to takie, gdy rezystory s¹ jeden nad drugim, a szeregowe, gdy obok siebie, a ich opór podany w Ohmach liczy siê tak: Szeregowo: R = R1 + R2      Równolegle: 1/R = 1/R1 + 1/R2";
                 }
                 else if (kgracz.Gracz.Location.X > 0) 
                 {
-                    knaukowiec.dialog.Text = "Witaj nazywam siê Nikola Tesla! Odkry³em wiele rzeczy zwi¹zanych z pr¹dem przemiennym, ale jako ¿e dopiero zaczynasz swoj¹ przygodê z fizyk¹ to nie jesteœ jeszcze gotowy na moje odkryci¹. Nauczê ciê natomiast podstawowego prawa zwi¹zanego z elektronik¹, czyli prawa Ohma!";
+                    knaukowiec.dialog.Text = "Witaj nazywam siê Nikola Tesla! Odkry³em wiele rzeczy zwi¹zanych z pr¹dem przemiennym, ale jako ¿e dopiero zaczynasz swoj¹ przygodê z fizyk¹ to nie jesteœ jeszcze gotowy na moje odkryci¹. Nauczê ciê natomiast podstawowego prawa zwi¹zanego z elektronik¹, czyli prawa Ohma! Prawo Ohma: I = U/R";
                 }                
 
                 if (progress == 3)
                 {
-                    zadanietekst.Text = "Wyznacz pr¹d, który musi wygenerowaæ bateria aby napiêcie na akumulatorze osi¹gnê³o 12V; R = 3 ohm";
+                    zadanietekst.Text = "Wyznacz pr¹d I, który musi wygenerowaæ bateria aby napiêcie na akumulatorze osi¹gnê³o U = 12V; R = 3 ohm";
                 }
 
                 if (progress == 4)
@@ -289,9 +307,11 @@ namespace Fizyczny_Mag
                 {
                     kgracz.Gracz.Location = new Point(dziura.Location.X - 100, kgracz.Gracz.Location.Y);
                 }
+                wzor = "Koniec gry, nie ma wiêcej wzorów!";
                 logo.Visible = true;
                 knaukowiec.dialog.Visible = false;
                 kpoziom.Obiekt.Visible = false;
+                dziura.Visible = false;
                 przepasc.Visible = true;
                 zadanietekst.Visible = false;
                 rezystoryimage.Visible = false;
@@ -299,6 +319,15 @@ namespace Fizyczny_Mag
                 knaukowiec.Naukowiec.Visible = false;
             }
         }
+
+        /// <summary>
+        /// Funkcja klikania myszka na ekranie
+        /// Chowanie dialogu
+        /// Przycisk wyjscia z gry
+        /// Przycisk wiedzy
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void main_MouseClick(object sender, MouseEventArgs e)
         {
             if (knaukowiec.Naukowiec.Visible && e.X > knaukowiec.Naukowiec.Location.X && e.X < knaukowiec.Naukowiec.Location.X + knaukowiec.Naukowiec.Width && e.Y > knaukowiec.Naukowiec.Location.Y && e.Y < knaukowiec.Naukowiec.Location.Y + knaukowiec.Naukowiec.Height)
@@ -336,6 +365,11 @@ namespace Fizyczny_Mag
 
         }
 
+        /// <summary>
+        /// Przycisk ktory przechodzi do trybu chodzenia
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             this.ActiveControl = null;
@@ -345,6 +379,11 @@ namespace Fizyczny_Mag
             button1.Text = "TRYB WPISYWANIA [WCISNIJ I NA KLAWIATURZE]";
         }
 
+        /// <summary>
+        /// Przycisk ktory zatwierdza wyniku gracza
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void zatwierdzwynik_Click(object sender, EventArgs e)
         {
             if (progress == 0 && level == 2)
@@ -403,6 +442,28 @@ namespace Fizyczny_Mag
             gamedesign();
         }
 
+        [StructLayout(LayoutKind.Sequential)]
+        public struct NativeMessage
+        {
+            public IntPtr Handle;
+            public uint Message;
+            public IntPtr WParameter;
+            public IntPtr LParameter;
+            public uint Time;
+            public Point Location;
+        }
+        [DllImport("user32.dll")]
+        public static extern int PeekMessage(out NativeMessage message, IntPtr window, uint filterMin, uint filterMax, uint remove);
+        bool IsApplicationIdle()
+        {
+            NativeMessage result;
+            return PeekMessage(out result, IntPtr.Zero, (uint)0, (uint)0, (uint)0) == 0;
+        }
+
+        private void main_Load(object sender, EventArgs e)
+        {
+
+        }
         private void ziemia_Click(object sender, EventArgs e)
         {
 

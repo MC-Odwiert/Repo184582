@@ -23,37 +23,63 @@ namespace Fizyczny_Mag
         static private Image loop = Image.FromFile("../../../FizycznyMag_assets/looptydiscoop.png");
         static private Image strzalka = Image.FromFile("../../../FizycznyMag_assets/strzalka.png");
 
+        /// <summary>
+        /// Strzalka wyjscia w grze
+        /// </summary>
         public PictureBox Strzalka;
-        public PictureBox Obiekt;
-        private PictureBox wagonik;
-        private int speed = 5;
 
+        /// <summary>
+        /// Przeszkoda uzywana w grze
+        /// </summary>
+        public PictureBox Obiekt;
+
+        /// <summary>
+        /// Uzywany wagonik na ostatnim poziomie
+        /// </summary>
+        private PictureBox wagonik;
         private int speedstrzalki = 2;
         private int pozycjastrzalki;
+        /// <summary>
+        /// Uzywane do animacji gora dol strzalki
+        /// </summary>
         private bool gora = true;
+        /// <summary>
+        /// Max dystans przebycia strzalki gora dol
+        /// </summary>
         static private int maxdystanstrzalki = 20;
 
         private main Main;
-        public poziom(main Main, int ziemia)
+        /// <summary>
+        /// Ustawia przeszkode i strzalke wyjscia
+        /// </summary>
+        /// <param name="Main"></param>
+        /// <param name="wysokoscziemii"></param>
+        public poziom(main Main, int wysokoscziemii)
         {
             this.Main = Main;
 
             Strzalka = new PictureBox();
             Strzalka.Image = strzalka;
             Strzalka.Size = new Size(strzalka.Width/2, strzalka.Height/2);
-            Strzalka.Location = new Point(Main.Width - Strzalka.Width - 20, Main.Height - ziemia - Strzalka.Height - 20);
+            Strzalka.Location = new Point(Main.Width - Strzalka.Width - 20, Main.Height - wysokoscziemii - Strzalka.Height - 20);
             pozycjastrzalki = Strzalka.Top;
 
             Obiekt = new PictureBox();
             ustawprzeszkode(1);
-            Obiekt.Location = new Point(Main.Width/2, Main.Height - ziemia - Obiekt.Height+20);
+            Obiekt.Location = new Point(Main.Width/2, Main.Height - wysokoscziemii - Obiekt.Height+20);
 
             wagonik = new PictureBox();
             wagonik.Image = wagon;
+            wagonik.Visible = false;
 
             Main.Paint += new PaintEventHandler(paint);
         }
 
+        /// <summary>
+        /// Uzywana do DrawImage
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void paint(object sender, PaintEventArgs e)
         {
             if (Obiekt.Visible == true)
@@ -71,6 +97,10 @@ namespace Fizyczny_Mag
             }
         }
 
+        /// <summary>
+        /// Ustawia pozycje przeszkoddy
+        /// </summary>
+        /// <param name="przeszkoda"></param>
         public void ustawprzeszkode(int przeszkoda)
         {
             if (przeszkoda == 1)
@@ -104,6 +134,9 @@ namespace Fizyczny_Mag
             }
         }
 
+        /// <summary>
+        /// Funkcja pozwala na poruszanie sie strzalki gora dol
+        /// </summary>
         public void animacjastrzałki()
         {
             if (Strzalka.Visible == true)

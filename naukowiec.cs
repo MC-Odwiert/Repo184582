@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Fizyczny_Mag
 {
     
-    internal class naukowiec
+    public class naukowiec
     {
 
         private Image model;
@@ -17,9 +17,20 @@ namespace Fizyczny_Mag
 
 
         public PictureBox Naukowiec;
+        /// <summary>
+        /// Okienko dialogowe naukowcow
+        /// </summary>
         public Label dialog;
         private main Main;
+
+        /// <summary>
+        /// Ile pomniejszony ma byc naukowiec
+        /// </summary>
         private int zoom = 4;
+
+        /// <summary>
+        /// Na jakiej wysokosci ma sie pojawic
+        /// </summary>
         private int wysokoscziemii;
         public naukowiec(main Main, int wysokoscziemii)
         {
@@ -38,6 +49,10 @@ namespace Fizyczny_Mag
             Main.Paint += new PaintEventHandler(paint);
         }
 
+        /// <summary>
+        /// Funkcja ktora ustawia model naukowca i jego dymek dialogu
+        /// </summary>
+        /// <param name="naukowiec"></param>
         public void ustawnaukowca(int naukowiec)
         {
             Naukowiec.Visible = true;
